@@ -10,7 +10,7 @@
 
 camera {
     location <10,10,-20>
-    look_at <0,0,0> 
+    look_at <0,10,0> 
 }
 
 light_source {
@@ -22,7 +22,7 @@ light_source {
 #declare base =
     sor {
         4, <4,0>, <2.75,2.1>, <2.7,4>, <4.8,4.4>
-        open
+        // open
         sturm
         texture {
             T_Grnt16
