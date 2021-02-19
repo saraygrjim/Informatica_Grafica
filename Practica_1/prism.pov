@@ -19,7 +19,7 @@ camera {
     // look_at <0, 3.5, 0>
 
     //Vista alta
-    location <-8, 15, 11>
+    location <-8, 18, 10>
     look_at <0, 2, 0>
 
     //Base de la figura
@@ -79,7 +79,7 @@ light_source {
     }
 
 #declare triagulares =
-    union {
+    merge {
         object { 
             prisma_triangular
             translate 1.1*y
@@ -102,8 +102,8 @@ light_source {
 
 
 #declare final_con_relleno =
-    union {
-        object { triangulares_sin_puntas }
+    merge {
+        objgect { triangulares_sin_puntas }
         object { 
             prisma_hexagonal 
             translate 1.1*y
@@ -119,7 +119,7 @@ object {
         }
         object { 
             prisma_hexagonal_interior 
-            scale <0,1.4,0> 
+            scale <1.005,1.4,1.005> 
             translate 2.5*y
         }
 
