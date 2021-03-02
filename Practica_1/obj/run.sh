@@ -1,5 +1,5 @@
-povray amb.pov
+povray $1.pov 
 if [ "$?" -eq 0 ]
 then
-    mimeopen amb.png 
+    mimeopen $1.png 
 fi
