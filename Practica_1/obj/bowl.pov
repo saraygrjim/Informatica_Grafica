@@ -9,9 +9,11 @@ global_settings{ assumed_gamma 1.0 } // Para renderizar lo mismo en macOS y Linu
         4, <4,0>, <2.75,2.1>, <2.7,4>, <4.8,4.4>
         // open
         sturm
-        texture {
-            T_Grnt16
-        }
+        texture{ pigment{color White}
+            finish {ambient 0.1
+                 diffuse 0.9
+                 phong 1}
+       }
         finish {
             phong 1
             phong_size 80
@@ -25,8 +27,10 @@ global_settings{ assumed_gamma 1.0 } // Para renderizar lo mismo en macOS y Linu
             <0, 8, 0>, 4.8
             scale x*1.1
 
-            texture {
-                T_Grnt16
+            texture{ pigment{color White}
+                finish {ambient 0.1
+                 diffuse 0.9
+                 phong 1}
             }
 
             finish {
@@ -41,8 +45,10 @@ global_settings{ assumed_gamma 1.0 } // Para renderizar lo mismo en macOS y Linu
 
             scale x*1.1
 
-            texture {
-                T_Grnt16
+           texture{ pigment{color White}
+                finish {ambient 0.1
+                 diffuse 0.9
+                 phong 1}
             }
 
             finish {

@@ -3,6 +3,7 @@ global_settings{ assumed_gamma 1.0 } // Para renderizar lo mismo en macOS y Linu
 #include "textures.inc"
 #include "shapes.inc"
 #include "rand.inc"
+#include "glass.inc"
 #declare Rand_1 = seed (12433);
 /*
 * Vista frontal 
@@ -23,52 +24,30 @@ camera{ location front_pos
         look_at  front_look_at
 }
 
-// // Sol
-// light_source{<2000,3500,-2500> color White*0.9}
+#declare OrangeBubble = material { 
+        texture { 
+            pigment { Col_Glass_Orange } 
+            finish{ F_Glass1 } } 
+            interior { ior 1.5 } 
+    }
 
-// // Cielo
-// sky_sphere{ pigment{ gradient <0,1,0>
-//                      color_map{ [0   color rgb<1,1,1>*0.6         ]//White
-//                                 [0.1 color rgb<0.24,0.34,0.56>*0.8]//~Navy
-//                                 [0.9 color rgb<0.24,0.34,0.56>*0.8]//~Navy
-//                                 [1.0 color rgb<1,1,1>*0.6         ]//White
-//                               }
-//                      scale 2 
-//                  }
-// } 
-
-// // Suelo
-// plane { <0,1,0>, 0  
-//       texture { NBglass pigment { color rgb <0.9,0.9,0.9>}}
-//       finish{phong 1
-//        diffuse 0.35}
-// }
-
-
-#declare SoapBubbleTex = texture {
-    pigment {Red}
-        finish {
-            Shiny
-            diffuse 0.2
-            //irid {0.3 thickness 0.5 turbulence 0.5}
-            conserve_energy
-        }
-}  
-
-#declare bubbleRadius=0.7;
-#declare BigSphere = sphere {<0,8,0>, 8 texture{Ruby_Glass}}
+#declare bubbleRadius=0.4;
+#declare BigSphere = sphere {
+    <0,8,0>, 8 
+    material { OrangeBubble }
+}
 #declare InnerSphere = sphere{<0,8,0>, 8-bubbleRadius}
 
 #declare finalSphere = 
     union{
         object {BigSphere}
     #local Nr = 0;     // start
-    #local EndNr = 50; // end
+    #local EndNr = 120; // end
     #while (Nr< EndNr)
 
     
-    sphere{VRand_In_Obj(InnerSphere, Rand_1), bubbleRadius 
-            texture{ SoapBubbleTex}} 
+    sphere{VRand_In_Obj(InnerSphere, Rand_1), RRand(0.1,bubbleRadius,Rand_1) 
+            material{ OrangeBubble}} 
     #local Nr = Nr + 1;  // next Nr
     #end // --------------- end of loop
     translate<0,0,0>
