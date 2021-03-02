@@ -1,38 +1,11 @@
+global_settings{ assumed_gamma 1.0 } // Para renderizar lo mismo en macOS y Linux
 #include "colors.inc"
 #include "shapes.inc"
 #include "textures.inc"
-// #include "Woods.inc"
-// #include "stones.inc"
 #include "glass.inc"
-// #include "metals.inc"
 
 
-camera {
-    // location <-30,25,10>
-
-    // Planta
-    // location <0,20,0>
-    // look_at <0,0,0> 
-
-    //Perfil
-    // location <0, 5, 11>
-    // look_at <0, 3.5, 0>
-
-    //Vista alta
-    location <-8, 18, 10>
-    look_at <0, 2, 0>
-
-    //Base de la figura
-    // location <0,-20,0>
-    // look_at <0,0,0> 
-}
-
-light_source {
-  <1000,1000,-1000>, rgb <1,0.75,0> //an orange light
-  }
-
-#declare prisma_triangular =
-
+#declare triangularPrism =
     prism {
         linear_sweep
         linear_spline
@@ -43,7 +16,7 @@ light_source {
         material { M_Glass }
     }
 
-#declare prisma_hexagonal_exterior =
+#declare hexagonalPrismBig =
     prism {
         linear_sweep
         linear_spline
@@ -55,19 +28,19 @@ light_source {
     }
 
 
-#declare prisma_hexagonal_interior =
+#declare hexagonalPrismIn =
     intersection {
         object { 
-            prisma_triangular 
+            triangularPrism 
         }
         object { 
-            prisma_triangular
+            triangularPrism
             rotate <0,180,0>  
              
         }
     }
 
-#declare prisma_hexagonal =
+#declare hexagonalPrismOut =
     prism {
         linear_sweep
         linear_spline
@@ -78,58 +51,46 @@ light_source {
         material{ M_Glass }
     }
 
-#declare triagulares =
+#declare triangularPrismUnion =
     merge {
         object { 
-            prisma_triangular
+            triangularPrism
             translate 1.1*y
         }
         object { 
-            prisma_triangular
+            triangularPrism
             rotate <0,180,0>  
         }
     }
 
-
-
-
-
-#declare triangulares_sin_puntas =
+#declare triangularPrismNoVertex =
     intersection {
-        object { prisma_hexagonal_exterior }
-        object { triagulares }
+        object { hexagonalPrismBig }
+        object { triangularPrismUnion }
     }
 
 
-#declare final_con_relleno =
+#declare prismBlock =
     merge {
-        objgect { triangulares_sin_puntas }
+        object { triangularPrismNoVertex }
         object { 
-            prisma_hexagonal 
+            hexagonalPrismOut 
             translate 1.1*y
         }
 
     }
 
-
-object {
+#declare finalPrism = 
     difference {
         object { 
-            final_con_relleno
+            prismBlock
         }
         object { 
-            prisma_hexagonal_interior 
+            hexagonalPrismIn 
             scale <1.005,1.4,1.005> 
             translate 2.5*y
         }
 
     }
-}
 
 
-
-
-
-background {
-    rgb <0.9,0.9,0.9> 
-}

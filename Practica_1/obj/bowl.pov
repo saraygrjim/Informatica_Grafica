@@ -1,23 +1,8 @@
-#include "colors.inc"
+global_settings{ assumed_gamma 1.0 } // Para renderizar lo mismo en macOS y Linux
 #include "colors.inc"
 #include "shapes.inc"
 #include "textures.inc"
-#include "Woods.inc"
 #include "stones.inc"
-#include "glass.inc"
-#include "metals.inc"
-
-
-camera {
-    location <10,10,-20>
-    look_at <0,10,0> 
-}
-
-light_source {
-    <0, 0, -15>
-    color rgb <1, 1, 1>
-}
-
 
 #declare base =
     sor {
@@ -34,10 +19,10 @@ light_source {
 
     }
 
-#declare cuello =
+#declare cup =
     difference {
         sphere { 
-            <0, 8, 0>, 5
+            <0, 8, 0>, 4.8
             scale x*1.1
 
             texture {
@@ -52,7 +37,7 @@ light_source {
         }  
 
         sphere { 
-            <0, 8, 0>, 4.9
+            <0, 8, 0>, 4.7
 
             scale x*1.1
 
@@ -67,21 +52,14 @@ light_source {
         } 
 
         box { 
-            <-8, 6.8, -5>, <10, 15, 5> 
+            <-8, 7.5, -5>, <10, 15, 5> 
         }
     }
 
-#declare cuenco =
+#declare bowl =
     union {
         object { base }
-        object { cuello }
+        object { cup }
     }
 
-object { 
-    cuenco
-}
-
-background { 
-    color Black
-}
  

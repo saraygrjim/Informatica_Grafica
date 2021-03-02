@@ -2,13 +2,24 @@ global_settings{ assumed_gamma 1.0 } // Para renderizar lo mismo en macOS y Linu
 #include "colors.inc"
 #include "textures.inc"
 #include "../obj/ambientador.pov"
+#include "../obj/bowl.pov"
+#include "../obj/sphere.pov"
+#include "../obj/prism.pov"
+
 
 /*
 * Vista frontal 
 */
-#declare front_pos = < 1, 15,-40.00> ;  
+#declare front_pos = < 9, 25,-40.00> ;  
 #declare front_look_at  = < 1, 2,  1.00> ;
 #declare front_angle    =  0 ;
+
+/*
+* Vista aerea 
+*/
+#declare up_pos = < 1, 80, 0> ;  
+#declare up_look_at  = < 1, 2,  1.00> ;
+#declare up_angle    =  0 ;
 
 /* 
 * Vista cenital 
@@ -24,7 +35,7 @@ camera{ location front_pos
 }
 
 // Sol
-light_source{<2000,3000,2500> color White}
+light_source{<2000,3500,-2500> color White*0.9}
 
 // Cielo
 sky_sphere{ pigment{ gradient <0,1,0>
@@ -48,6 +59,7 @@ plane { <0,1,0>, 0
 //     color rgb<24,49,42>
 // }
 
-object {
-    ambientador
-}
+object { ambientador scale y*0.9  }
+object { bowl scale 0.9 translate<10,0,-9>}
+object { finalSphere  scale 0.6 translate<-6,0,-7> }
+object { finalPrism scale 1.4 scale y*1.4 translate<-6,0,15> }
