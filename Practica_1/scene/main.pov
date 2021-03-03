@@ -42,7 +42,12 @@ light_source{
 }
 
 light_source{
-        <15 ,4,10> color White
+        <15 ,4,10> color White*0.6
+        shadowless
+}
+
+light_source{
+        <-7 ,6,15> color White*0.6
         shadowless
 }
 
