@@ -45,10 +45,10 @@ global_settings{ assumed_gamma 1.0 }
         rotate <12,0,8>  
         translate<1.5,0,-2>
     }   
-    cylinder{<5,3,3>,<5,9,3>,1.7 open
+    cylinder{<5,3,3>,<5,9,3>,2 open
         material {M_Glass}
     }
-    cylinder{<5,3,3>,<5,4,3>,1.7
+    cylinder{<5,3,3>,<5,4,3>,2
         scale 0.99
         material { texture { pigment { Col_Glass_Winebottle } 
         finish{ F_Glass1 } } interior { ior 1.5 } }
