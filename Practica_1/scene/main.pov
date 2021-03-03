@@ -10,9 +10,9 @@ global_settings{ assumed_gamma 1.0 } // Para renderizar lo mismo en macOS y Linu
 /*
 * Vista frontal 
 */
-#declare front_pos = < 12, 25,-35.00> ;  
-#declare front_look_at  = < 0, 7,  0> ;
-#declare front_angle    =  0 ;
+#declare front_pos = < 15, 24,-40.00> ; 
+#declare front_look_at  = <6, 15, -5> ;
+#declare front_angle    =  70 ;
 
 /*
 * Vista aerea 
@@ -29,41 +29,42 @@ global_settings{ assumed_gamma 1.0 } // Para renderizar lo mismo en macOS y Linu
 #declare top_angle    =  0 ;
 
 camera{ location front_pos
+        angle    front_angle
         look_at  front_look_at
-        right    x*image_width/image_height        
-        //sky <0,0,2>
-        //rotate <0,front_angle,0>
+        right    x*image_width/image_height 
+        
 }
 
-// Sol
-//light_source{<500,3500,900> color White}
-light_source{<2000,3500,-2500> color White*0.9}
-// Cielo
-sky_sphere{ pigment{ gradient <0,1,0>
-                     color_map{ [0   color Black]//White
-                                [0.1 color Black]//~Navy
-                                [0.9 color Black]//~Navy
-                                [1.0 color Black]//White
-                              }
-                     scale 2 
-                 }
-} 
+light_source{
+        <0 ,500,500> color White
+        spotlight
+        point_at  <0,0,0>
+}
+
+light_source{
+        <15 ,4,10> color White
+        shadowless
+}
 
 // Suelo
 plane { <0,1,0>, 0  
-    texture {pigment {color White}}
+    texture {  pigment { color White*0.7}}
+//     finish{phong 1
+//     diffuse 0.35}
 }
 
-
-plane { <0,0,1>, 50  
-        texture {pigment {color rgb<0.19,0.24,0.12>*0.3}}
-        //color rgb<56,74,32>
-        rotate <0,-25,0>
-}
 
 object { ambientador 
-        scale y*0.9  
-        rotate <0, 4, 0> }
+        scale y*0.85   }
 object { bowl  translate<12,-2,-9>}
 object { finalSphere  scale 0.7 translate<-6,0,-7> }
-object { finalPrism scale 1.4 scale y*1.4 translate<-5,0,13> }
+object { finalPrism scale 1.4 scale y*1.35 translate<-7,0,13> }
+object { 
+        box {
+        <-1, -1, -1>, <1, 1, 1> 
+        texture {pigment {color rgb<0.19,0.24,0.12>*0.1}}
+        }
+        scale x*1000 scale y*60 scale z*0.2
+        translate<0,0,70>
+        rotate <0,-20,0>
+}

@@ -13,7 +13,7 @@ global_settings{ assumed_gamma 1.0 } // Para renderizar lo mismo en macOS y Linu
         7, // ... up through here
         3, // the number of points making up the shape ...
         <-5,-2.88>, <5,-2.88>, <0,5.78>
-        material { M_Glass }
+        material{ M_Glass }
     }
 
 #declare hexagonalPrismBig =
@@ -55,7 +55,7 @@ global_settings{ assumed_gamma 1.0 } // Para renderizar lo mismo en macOS y Linu
     merge {
         object { 
             triangularPrism
-            translate 1.1*y
+            translate 1.05*y
         }
         object { 
             triangularPrism
