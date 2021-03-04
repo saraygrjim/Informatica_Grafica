@@ -13,7 +13,11 @@ global_settings{ assumed_gamma 1.0 } // Para renderizar lo mismo en macOS y Linu
         7, // ... up through here
         3, // the number of points making up the shape ...
         <-5,-2.88>, <5,-2.88>, <0,5.78>
-        material{ M_Glass }
+        material{ M_Glass3 }
+        normal{
+            bumps 0.2
+            scale 0.2
+        }
     }
 
 #declare hexagonalPrismBig =
@@ -24,7 +28,11 @@ global_settings{ assumed_gamma 1.0 } // Para renderizar lo mismo en macOS y Linu
         11, // ... up through here
         6, // the number of points making up the shape ...
         <-2.93,5.09>, <2.93,5.09>, <5.84, 0>, <2.93, -5.09>, <-2.93, -5.09>, <-5.84, 0>
-        material{ M_Glass }
+        material{ M_Glass3 }
+        normal{
+            bumps 0.2
+            scale 0.2
+        }
     }
 
 
@@ -48,7 +56,11 @@ global_settings{ assumed_gamma 1.0 } // Para renderizar lo mismo en macOS y Linu
         5, // ... up through here
         6, // the number of points making up the shape ...
         <-2.2,3.82>, <2.2,3.82>, <4.41, 0>, <2.2, -3.82>, <-2.2,-3.82>, <-4.41, 0>
-        material{ M_Glass }
+        material{ M_Glass3 }
+        normal{
+            bumps 0.2
+            scale 0.2
+        }
     }
 
 #declare triangularPrismUnion =
