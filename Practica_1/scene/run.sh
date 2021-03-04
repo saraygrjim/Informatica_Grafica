@@ -1,5 +1,9 @@
 povray -H2300 -W2100 main.pov
 if [ "$?" -eq 0 ]
 then
-    open main.png 
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        mimeopen main.png 
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        open main.png 
+    fi
 fi

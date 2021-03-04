@@ -1,4 +1,3 @@
-global_settings{ assumed_gamma 1.0 } // Para renderizar lo mismo en macOS y Linux
 #include "colors.inc"
 #include "textures.inc"
 #include "../obj/ambientador.pov"
@@ -6,6 +5,7 @@ global_settings{ assumed_gamma 1.0 } // Para renderizar lo mismo en macOS y Linu
 #include "../obj/sphere.pov"
 #include "../obj/prism.pov"
 
+global_settings{ assumed_gamma 1.0} // Para renderizar lo mismo en macOS y Linux
 /*
 * Vista frontal 
 */
