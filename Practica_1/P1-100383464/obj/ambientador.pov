@@ -5,7 +5,7 @@ global_settings{ assumed_gamma 1.0 }
 #include "glass.inc"
 
 
-#declare palo = cylinder{<5,3,3>,<5,25,3>,0.15 
+#declare palo = cylinder{<5,3,3>,<5,27,3>,0.15 
         texture {T_Wood21 pigment { Green }}
 }
 

@@ -1,4 +1,3 @@
-global_settings{ assumed_gamma 1.0 } // Para renderizar lo mismo en macOS y Linux
 #include "colors.inc"
 #include "textures.inc"
 #include "../obj/ambientador.pov"
@@ -6,13 +5,13 @@ global_settings{ assumed_gamma 1.0 } // Para renderizar lo mismo en macOS y Linu
 #include "../obj/sphere.pov"
 #include "../obj/prism.pov"
 
-
+global_settings{ assumed_gamma 1.0} // Para renderizar lo mismo en macOS y Linux
 /*
 * Vista frontal 
 */
-#declare front_pos = < 15, 24,-40.00> ; 
-#declare front_look_at  = <6, 15, -5> ;
-#declare front_angle    =  70 ;
+#declare front_pos = < 15, 28,-41.00> ; 
+#declare front_look_at  = <3, 12, -5> ;
+#declare front_angle    =  40 ;
 
 /*
 * Vista aerea 
@@ -47,6 +46,11 @@ light_source{
 }
 
 light_source{
+        <0 ,1000,-1000> color White*0.4
+        shadowless
+}
+
+light_source{
         <-7 ,6,15> color White*0.6
         shadowless
 }
@@ -61,9 +65,13 @@ plane { <0,1,0>, 0
 
 object { ambientador 
         scale y*0.85   }
-object { bowl  translate<12,-2,-9>}
+object { bowl translate<12,-2,-6>}
 object { finalSphere  scale 0.7 translate<-6,0,-7> }
-object { finalPrism scale 1.4 scale y*1.35 translate<-7,0,13> }
+object { finalPrism 
+         scale 1.4 scale y*1.35 
+         translate<-7,0,12> 
+         rotate <0,-3,0>
+}
 object { 
         box {
         <-1, -1, -1>, <1, 1, 1> 
