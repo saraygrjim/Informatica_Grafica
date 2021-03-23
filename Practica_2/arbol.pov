@@ -90,10 +90,10 @@ texture{
 }
 
 #declare textura_hoja=
-texture{
-  pigment { color <0,0.7,0> }
-  finish { cdiffuse 0.4 specular .1 roughness .1 irid { 0.1 thickness 0.1 turbulence 0.1 } }
-}
+  texture{
+    pigment { color <0,0.7,0> }
+    finish { diffuse 0.4 specular .1 roughness .1 irid { 0.1 thickness 0.1 turbulence 0.1 } }
+  }
 
 #macro hoja(px, py, pz, ax, ay, az)
 object{

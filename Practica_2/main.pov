@@ -3,8 +3,8 @@
 #include "debug.inc"
 #include "rand.inc"
 #include "textures.inc"
-
 #include "woods.inc"
+#include "./textures.pov"
 
 #declare s = seed(982143);
 
@@ -24,25 +24,6 @@ light_source{  <0, 20, -80>  color rgb<0.9,0.9,1>*0.1 shadowless}// flash
 
 
 // sky ---------------------------------------------------------------------
-// sky textures --------------------------------------------------------
-#declare T_Clouds  =
-texture {
-    pigment { bozo
-        turbulence 1.5
-        octaves 10
-        omega 0.5
-        lambda 2.5
-        color_map { [0.0 color rgbf<1, 1, 1, 1> ]
-                    [0.2 color rgbf<0.85, 0.85, 0.85, 0.00>*1.5 ]
-                    [0.5 color rgbf<0.95, 0.95, 0.95, 0.90>*1.12  ]
-                    [0.6 color rgbf<1, 1, 1, 1> ]
-                    [1.0 color rgbf<1, 1, 1, 1> ] }
-    }
-
-    finish {ambient 0.95 diffuse 0.1}
-}
-
-//--------------------------------------------------------------------
 union { // make sky planes: 
 
  plane { <0,1,0>, 500 hollow //!!!!
@@ -59,8 +40,8 @@ union { // make sky planes:
         texture{ pigment {color rgb<0.24,0.38,0.7>*0.50}
                  finish {ambient 1 diffuse 0}}}
 scale<1.5,1,1.25>  
-rotate<0,0,0> translate<0,0,0>}                          // end of sky
-//--------------------------------------------------------------------
+rotate<0,0,0> translate<0,0,0>}                          
+// end of sky
 
 
 // fog on the ground -------------------------------------------------
@@ -70,15 +51,16 @@ fog { fog_type   2
       fog_offset 0.1
       fog_alt    1.5
       turbulence 1.8
-    }                                                    // end of fog
+    }
+// end of fog
 
 // ground ------------------------------------------------------------
 plane { <0,1,0>, 0 
-        texture{ pigment{ color rgb<0.35,0.65,0.0>*0.45 }
-                 normal { bumps 0.75 scale 0.015 }
-                 finish { phong 0.1 }
-               } // end of texture
-      } // end of plane                                   // end of ground
+        texture{ Soil_Texture } 
+      } // end of plane                                  
+// end of ground
+
+
 // light_source {
 //   <-250,500,150>, color White
 //   spotlight
@@ -164,34 +146,7 @@ plane { <0,1,0>, 0
 // //   }
 // }
 
-#declare leaf_T=
-texture{
-  pigment { color DarkGreen } //Gold
-  finish { specular .1 roughness .1 irid { 0.1 thickness 0.1 turbulence 0.1 } }
-}
 
-#declare Stem_Texture = 
- texture{ pigment{ color rgb< 0.75, 0.5, 0.30>*0.25 } 
-          normal { bumps 0.75 scale <0.025,0.075,0.025> }
-          finish { phong 0.2 reflection 0.00}         
-        } // end of texture 
-//------------------------------------------------------- 
-#declare Leaves_Texture_1 = 
- texture{ pigment{ bozo 
-                   color_map{
-                   [0.0 color rgbf< 1,0.1,0.0, 0.2>*0.7 ]  
-                   [1.0 color rgbf< 1,0.7,0.0, 0.2>*1 ]
-                            } //color_map  
-                 }  // pigment 
-          normal { bumps 0.15 scale 0.05 }
-          finish { phong 1 reflection 0.00}
-        } // end of texture 
-//-------------------------------------------------------- 
-#declare Leaves_Texture_2 = 
- texture{ pigment{ color rgbf< 1,0.5,0.0, 0.4>*0.5}    
-          normal { bumps 0.15 scale 0.05 }
-          finish { phong 0.2 }
-        } // end of texture
 
 
 #macro leaf(px, py, pz, ax, ay, az)
@@ -286,6 +241,21 @@ object{
     #end
 #end
 
+// Blucle para posicionar los arboles del bosque pero me he rayao mucho
+
+// #declare n_trees = 10
+// #macro position(depth, r, l)
+//   #local ctr = 0
+//   #local px = 0
+//   #local py = 0
+//   #local pz = 0
+//   #while (ctr < n_trees)
+//     tree(depth, r, l, px, 0, pz)
+//     #local ctr = ctr+1;
+//   #end
+// #end
+
+
 object {
     union {
         tree(
@@ -309,3 +279,4 @@ object {
         translate <0, -1, 0>
     }
 }
+
