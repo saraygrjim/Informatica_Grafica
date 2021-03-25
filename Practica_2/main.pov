@@ -130,5 +130,27 @@ object {
     hollow
     no_shadow
 }
+light_source{ <0, 0, 0> 
+               color rgb <0,0,1>*0.9
+               area_light           
+               <90, 0.1, 0> <90, 0.9, 0> //
+               1, 5                    //
+            }  
+
+// #declare rayo1 =
+//   union {
+    
+//         lightning(
+//             0,  //depth
+//             0.2,  // radius
+//             5,  // length
+//             90, 300, 20, // initial point 
+//         )
+//     }
 
 
+// object {
+//   rayo1
+//   translate y*5
+//   translate z*40
+// }

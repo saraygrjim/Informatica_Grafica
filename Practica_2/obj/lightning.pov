@@ -31,19 +31,39 @@
         #local px2 = px + l2*sin(radians(angx));
         #local py2 = py - l2*cos(radians(angy));
         #local pz2 = pz + l2*sin(radians(angz));
-        cone {
-            <px, py, pz>, r // <x, y, z>, center & radius of one end
-            <px2, py2, pz2>, r // <x, y, z>, center & radius of the other end
-            texture {
-                pigment {color White}
-                 finish { ambient 1.5
-                        diffuse 1
-                 }
-            }
-           
+        union {
             
-        }
 
+            cone {
+                <px, py, pz>, 0.2 // <x, y, z>, center & radius of one end
+                <px2, py2, pz2>, 0.2 // <x, y, z>, center & radius of the other end
+                // texture {
+                //     pigment {color White}
+                //      finish { ambient 1.5
+                //             diffuse 1
+                //      }
+                // }
+                pigment{ color rgbf<1,1,1,1>} //color Clear
+                hollow
+                interior{ media{ emission <0,0,1>*7 }}   
+            }
+
+            cone {
+                <px, py, pz>, 1 // <x, y, z>, center & radius of one end
+                <px2, py2, pz2>, 1 // <x, y, z>, center & radius of the other end
+                // texture {
+                //     pigment {color White}
+                //      finish { ambient 1.5
+                //             diffuse 1
+                //      }
+                // }
+                pigment{ color rgbf<1,1,1,1>} //color Clear
+                hollow
+                interior{ media{ emission  <0.1765,0.5765,0.9529>*1 }}      
+            }
+
+        }
+        
         lightning(depth+1, r, l2, px2, py2, pz2)
         #local k = RRand(0, 1, s_light);
         #if (k < 0.1 & depth > 10)
