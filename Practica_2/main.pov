@@ -86,6 +86,15 @@ union {
       tree(0, 2, 12, px, 0, pz, leaf_ratio)
     }
 
+//    #local leaf_max = 20;
+//    #local leaf_counter = 0;
+//    #while (leaf_counter < leaf_max)
+//        #local soil_x = px + RRand(-5,5,s); 
+//        #local soil_z = pz + RRand(-5,5,s); 
+//        leaf(soil_x, 0, soil_z, 0, 0, 0)
+//        #local leaf_counter = leaf_counter + 1;
+//    #end
+//
     #local px = px + 10;
     #local ctr = ctr+1;
   #end
@@ -97,13 +106,11 @@ object {
             0,  //depth
             0.2,  // radius
             5,  // length
-            -150, 300, 20, // initial point 
+            -100, 300, 20, // initial point 
         )
     }
     translate y*5
     translate z*40
-    //pigment{rgbt 1}
-    //interior{media{emission 1}}
     hollow
     no_shadow
 }
@@ -115,14 +122,11 @@ object {
             0,  //depth
             0.2,  // radius
             5,  // length
-            150, 300, 20, // initial point 
+            90, 300, 20, // initial point 
         )
     }
     translate y*5
     translate z*40
-    //pigment{rgbt 1}
-    //interior{media{emission <3,3,3>*1000}}
-    //finish { ambient 1 }
     hollow
     no_shadow
 }

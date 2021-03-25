@@ -46,7 +46,7 @@
             } // end of texture
 
 #declare Stem_Texture = 
-    texture{ pigment{ color rgb< 0.75, 0.5, 0.30>*0.25 } 
+    texture{ Dark_Wood
             normal { bumps 0.75 scale <0.025,0.075,0.025> }
             finish { phong 0.2 reflection 0.00}         
             } // end of texture 
