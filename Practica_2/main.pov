@@ -6,6 +6,7 @@
 #include "woods.inc"
 #include "./textures.pov"
 #include "obj/tree.pov"
+#include "obj/forest.pov"
 #include "obj/lightning.pov"
 
 #declare s = seed(982143);
@@ -14,33 +15,36 @@ global_settings
 {
   assumed_gamma 1.0
   ambient_light 1
-
 }
 
-#declare Camera_Location = < 30, 5,-100.00> ;  // front view
+// Camara -----------------------------------------------
+#declare Camera_Location = < 30, 5,-100.00> ; 
 #declare Camera_Look_At  = < 20,25,  0.00> ;
 #declare Camera_Angle    =  100 ;
 
-camera{ // ultra_wide_angle // orthographic 
+camera{ 
         location Camera_Location
         right    x*image_width/image_height
         angle    Camera_Angle
         look_at  Camera_Look_At
 }
 
-light_source{< 3000,3000,-3000> color rgb<1,1,1>*0.2 shadowless}                // sun 
-//light_source{  <0, 20, -80>  color rgb<0.9,0.9,1>*0.1 shadowless}// flash
+// Sol de color oscuro, simula un dia nublado 
+light_source{< 3000,3000,-3000> color rgb<1,1,1>*0.2 shadowless}
 
 
+// Cielo -------------------------------------------------
+// Plano normal al vector unitario Y,
+// con degradado en tonos oscuros 
 plane { 
   <0,1,0>, 500 
-  hollow //!!!!
+  hollow 
   texture { bozo scale 1
           texture_map{ 
-                [ 0.0  pigment{color rgbf<0.27,0.49,0.99,0.8>} ]
-                [ 0.5  pigment{color rgbf<0.27,0.49,0.99,0.6> }]
-                [ 0.6  pigment{color rgbf<0.24,0.38,0.7,0.4> }] 
-                [ 1.0  pigment{color rgbf<0.24,0.38,0.7,0.2> }] 
+                [ 0.0  pigment{color rgbf<0.27,0.49,0.99,0.8>} ] // Azul  
+                [ 0.5  pigment{color rgbf<0.27,0.49,0.99,0.6> }] // Mismo azul con menos transparencia
+                [ 0.6  pigment{color rgbf<0.24,0.38,0.7,0.4> }]  // Azul mas oscuro
+                [ 1.0  pigment{color rgbf<0.24,0.38,0.7,0.2> }] // Mismo azul con menos transparencia
                 } 
           scale <500,1,1000>
         } 
@@ -48,64 +52,41 @@ plane {
 }
 
 
-
+// Niebla -------------------------------------------------
 fog { 
-      fog_type   2
-      distance   400
-      color      White*0.9
-      fog_offset 0.1
-      fog_alt    30
+      fog_type   2 
+      distance   400 // Densidad de la niebla
+      color      White*0.9 
+      fog_offset 0.1 // Offset en el horizonte
+      fog_alt    30 // Altura de la niebla
       turbulence 1.8
     }
 
-// ground ------------------------------------------------------------
+// Suelo --------------------------------------------------- 
 plane { <0,1,0>, 0 
         texture{ Soil_Texture } 
-      } // end of plane                                  
-// end of ground
+}                                  
 
-//Bucle para posicionar los arboles del bosque pero me he rayao mucho
-
-#declare n_trees = 25;
-
-#local ctr = 0;
-#local px = -100;
-#local pz = 0;
-union {
-  #while (ctr < n_trees)
-    #local tmp = mod(ctr,3);
-    #if (tmp = 0)
-      #local leaf_ratio = 0;
-    #else
-      #local leaf_ratio = 1;
-    #end
-
-    #local pz = RRand(-50,50,s);
-    
-    union {
-      tree(0, 2, 12, px, 0, pz, leaf_ratio)
-    }
-
-//    #local leaf_max = 20;
-//    #local leaf_counter = 0;
-//    #while (leaf_counter < leaf_max)
-//        #local soil_x = px + RRand(-5,5,s); 
-//        #local soil_z = pz + RRand(-5,5,s); 
-//        leaf(soil_x, 0, soil_z, 0, 0, 0)
-//        #local leaf_counter = leaf_counter + 1;
-//    #end
-//
-    #local px = px + 10;
-    #local ctr = ctr+1;
-  #end
+// Arboles con posicion frontal
+object {
+     // 25 arboles espaciados linealmente en el eje X entre la Z -50 y 50
+    forest(25, -50, 50) 
 }
 
+// Arboles de fondo, para dar relleno
+object {
+     // 25 arboles espaciados linealmente en el eje X entre la Z -50 y 50
+    forest(20, 50, 100)
+    scale 0.9
+}
+
+// Rayo izquierdo
 object {
     union {
         lightning(
-            0,  //depth
-            5,  // length
-            -100, 300, 20, // initial point 
+            0,  //Profundidad inicial
+            4.5,  // Tamaño
+            -100, 300, 20, // Posicion inicial 
         )
     }
     translate y*2
@@ -118,9 +99,9 @@ object {
 object {
     union {
         lightning(
-            0,  //depth
-            5,  // length
-            90, 300, 20, // initial point 
+            0,  //Profundidad inicial
+            4.5,  // Tamaño
+            90, 300, 20, // Position incial
         )
     }
     translate y*8

@@ -1,3 +1,10 @@
+#declare max_depth = 6;   // Profundidad de la recursividad
+#declare r_ratio   = 0.8; // Ratio en el que decrece el ratio de las ramas
+#declare l_ratio   = 0.8; // Ratio en el que decrece el tamaño de las ramas
+#declare angle_max = 80;  // Maximo angulo que puede girar una rama respecto a su rama padre
+#declare angle_min = -80; // Minimo angulo que puede girar una rama respecto a su rama padre
+
+// Crea una hoja en la posicion (px,py,pz) con el angulo (ax, ay, az)
 #macro leaf(px, py, pz, ax, ay, az)
   object{
     union{
@@ -12,47 +19,54 @@
   }
 #end
 
-#declare max_depth = 6;
-#declare r_ratio   = 0.8;
-#declare l_ratio   = 0.8;
-#declare angle_max = 80;
-#declare angle_min = -80;
-
+// Crea una arbol en la posicion (px,py,pz) con el angulo (ax, ay, az), con radio r, longitud de rama l
+// y un numero de hojas determinado por leaf_ratio
 #macro tree(depth, r, l, px, py, pz, leaf_ratio)
     #if (depth < max_depth)
-        #local r2 = r*r_ratio;
-        #local l2 = l*l_ratio;
+        #local r2 = r*r_ratio; // Calculo del nuevo radio
+        #local l2 = l*l_ratio; // Calculo de la nueva longitud
 
-        #if (depth > max_depth/2)
+        // A partir de la mitad de la profundiad reducir el angulo
+        // y el radio
+        #if (depth > max_depth/2) 
           #declare r_ratio = 0.6;
           #declare angle_max = 70;
           #declare angle_min = -70;
         #end
-
+        
+        // Si es una rama (profundidad mayor que 0)
         #if (depth > 0)
-            #local angx = RRand(angle_min, angle_max, s);
+            // Se seleccionan angx, angy, angz aleatorios
+            #local angx = RRand(angle_min, angle_max, s); 
             #local angy = RRand(angle_min, angle_max, s);
             #local angz = RRand(angle_min, angle_max, s);        
-        #else
+        #else // Si es el tronco (profundiad 0)
             #local angx = 0;
             #local angy = 0;
             #local angz = 0;
         #end
         
+        // Calculo de las posiciones en funcion de los angulos
         #local px2 = px + l2*sin(radians(angx));
         #local py2 = py + l2*cos(radians(angy));
         #local pz2 = pz + l2*sin(radians(angz));
+
+        // Construccion de la rama a traves de un cono
+        // y una esfera para crear union entre ramas natural
         cone {
-          <px, py, pz>, r // <x, y, z>, center & radius of one end
-          <px2, py2, pz2>, r2 // <x, y, z>, center & radius of the other end
+          <px, py, pz>, r
+          <px2, py2, pz2>, r2
           texture{ Stem_Texture }
         }
         sphere {
-            <px2, py2, pz2>, r2 // <x, y, z>, radius
+            <px2, py2, pz2>, r2
             texture{ Stem_Texture }
             
         }
         
+        // Ramificacion aleatoria:
+        // Con probabilidad 0.8 seran 3 ramas.
+        // Con probabilidad 0.2 seran 2 ramas.
         tree(depth+1, r2, l2, px2, py2, pz2, leaf_ratio)
         #local k = SRand(s);
         #if (k > 0.2)
@@ -61,7 +75,9 @@
         #else        
           tree(depth+1, r2, l2, px2, py2, pz2, leaf_ratio)
         #end
-    #else
+
+    #else // Si la profundidad es la ultima entonces se pueden pintar hojas
+        // Determinar si se pintan hojas o no en funcion de leaf_ratio
         #local max_leafs = 0;
         #if (leaf_ratio <= 0.5)
           #local max_leafs = 0;
@@ -69,6 +85,7 @@
           #local max_leafs = 20;
         #end
         
+        // Se pintan hojas de manera aleatoria alrededor de la posicion de la rama.
         #local ctr = 0;
         #while (ctr < max_leafs)
           #local leaf_x = RRand(px-5, px+5, s);
