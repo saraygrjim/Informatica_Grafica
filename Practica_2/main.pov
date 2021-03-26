@@ -54,7 +54,7 @@ fog {
       distance   400
       color      White*0.9
       fog_offset 0.1
-      fog_alt    17
+      fog_alt    30
       turbulence 1.8
     }
 
@@ -104,12 +104,11 @@ object {
     union {
         lightning(
             0,  //depth
-            0.2,  // radius
             5,  // length
             -100, 300, 20, // initial point 
         )
     }
-    translate y*5
+    translate y*2
     translate z*40
     hollow
     no_shadow
@@ -120,37 +119,15 @@ object {
     union {
         lightning(
             0,  //depth
-            0.2,  // radius
             5,  // length
             90, 300, 20, // initial point 
         )
     }
-    translate y*5
+    translate y*8
     translate z*40
     hollow
     no_shadow
 }
-light_source{ <0, 0, 0> 
-               color rgb <0,0,1>*0.9
-               area_light           
-               <90, 0.1, 0> <90, 0.9, 0> //
-               1, 5                    //
-            }  
-
-// #declare rayo1 =
-//   union {
-    
-//         lightning(
-//             0,  //depth
-//             0.2,  // radius
-//             5,  // length
-//             90, 300, 20, // initial point 
-//         )
-//     }
 
 
-// object {
-//   rayo1
-//   translate y*5
-//   translate z*40
-// }
+

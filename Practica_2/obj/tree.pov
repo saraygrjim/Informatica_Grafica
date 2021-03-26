@@ -1,15 +1,15 @@
 #macro leaf(px, py, pz, ax, ay, az)
-object{
-  union{
-    cone{ <0,0,0>,0.1,<1,1,0>,0.1}
-    sphere{ <2.7,10,0>,2 scale <1,0.1,0.5> }
-    texture{ Leaves_Texture_1 }   
-    interior_texture{ Leaves_Texture_2 }   
+  object{
+    union{
+      cone{ <0,0,0>,0.1,<1,1,0>,0.1 no_shadow}
+      sphere{ <2.7,10,0>,2 scale <1,0.1,0.5> no_shadow}
+      texture{ Leaves_Texture_1 }   
+      interior_texture{ Leaves_Texture_2 }   
+    }
+    scale <0.4,0.4,0.4>
+    rotate <ax,ay,az>
+    translate <px,py,pz>
   }
-  scale <0.4,0.4,0.4>
-  rotate <ax,ay,az>
-  translate <px,py,pz>
-}
 #end
 
 #declare max_depth = 6;
