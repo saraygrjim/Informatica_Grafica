@@ -21,7 +21,7 @@ global_settings{ assumed_gamma 1.0 }
 camera{ Camera_0 }
 
 // sun
-light_source{<14,50,0> color rgb<1,0.9,0.8> parallel}
+light_source{<238,700,0> color rgb<1,0.9,0.8> parallel}
 
 // sky ------------------------------------
 sphere{<0,0,0>,1 hollow
@@ -45,11 +45,11 @@ sphere{<0,0,0>,1 hollow
           }  
 } 
 
-#declare Pool_X = 5.00;
+#declare Pool_X = 5.75;
 #declare Pool_Y = 3.00;
-#declare Pool_Z = 10.00;
+#declare Pool_Z = 7.00;
 #declare Pool_Inner_Size = <5,-2,8>;
-#declare Border = 0.70;  
+#declare Border = 1.00;  
 
 #declare Pool_Transformation = 
   transform{ rotate<0,0,0> 
@@ -73,20 +73,20 @@ difference{
 
 #declare Right_Wall =
   box {
-    <Pool_X+Border, 0, 0>, <Pool_X+2*Border+0.01, Pool_Y+10, Pool_Z+18> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+    <Pool_X+Border, 0, 0>, <Pool_X+2*Border, 10, Pool_Z+18> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
   }
 #declare Left_Wall =
 box {
-  <Pool_X-20, 0, 0>, <Pool_X-22, Pool_Y+10, Pool_Z+18> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+  <Pool_X-15, 0, 0>, <Pool_X-17, 10, Pool_Z+18> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
 }
 #declare Front_Wall =
   box {
-    <Pool_X+2*Border+0.01, Pool_Y+10, Pool_Z+17>, <Pool_X-20,0,Pool_Z+18> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+    <Pool_X+2*Border+0.01, 10, Pool_Z+6.5>, <Pool_X-20,0,Pool_Z+7.5> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
   }
 
-#declare Front_Wall2 =
+#declare Mid_Wall =
   box {
-    <Pool_X-21, Pool_Y+6.25, Pool_Z+12>, <3,0,Pool_Z+13> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+    <Pool_X-21, 7, Pool_Z+4>, <5,0,Pool_Z+5> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
   }
 
 
@@ -177,14 +177,14 @@ union {
     // translate x*2   
   }
   object{
-    Front_Wall2
+    Mid_Wall
     // translate x*2   
   }
 
   texture{ 
     pigment { 
-      //White
-      Pink
+      White
+      // Green
     }
     finish {
       brilliance .6
