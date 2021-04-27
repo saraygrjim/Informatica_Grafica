@@ -45,8 +45,10 @@ sphere{<0,0,0>,1 hollow
  scale 10000
  } // end of sphere -----------------------
 
+
+
 #declare Pool_Tex = 
-          texture{ pigment{ color White }
+          texture{ pigment {rgb<0.95, 0.92, 0.85> }
           finish{
             brilliance 0.6
             ambient 0.6
@@ -86,7 +88,22 @@ difference{
 
 #declare Right_Border =
   box {
-    <Pool_X+Border-0.01, 0, 0>, <Pool_X+2*Border, 0.2, Pool_Z+18> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+    <Pool_X+Border-0.05, 0, 0>, <Pool_X+2*Border, 0.2, Pool_Z+18> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+  }
+
+#declare Right_Tile1 =
+  box {
+    <Pool_X+Border-0.05, 0, Pool_Z-1>, <Pool_X+2*Border, 1, Pool_Z> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+  }
+
+#declare Right_Tile2 =
+  box {
+    <Pool_X+Border-0.05, 1.05, Pool_Z-1>, <Pool_X+2*Border, 2.05, Pool_Z> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+  }
+
+#declare Right_Tile3 =
+  box {
+    <Pool_X+Border-0.05, 2.1, Pool_Z-1>, <Pool_X+2*Border, 3.1, Pool_Z> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
   }
 
 #declare Left_Wall =
@@ -130,7 +147,7 @@ box {
 difference{
  plane{ <0,1,0>, 0 
   texture {
-    T_Grnt0
+    pigment {rgb<0.95, 0.92, 0.85>}
     finish{
       brilliance .6
       ambient 0.6
@@ -196,11 +213,26 @@ isosurface {
        < Pool_X+Border,1, Pool_Z+Border> 
       } 
     } 
- accuracy 0.01
- max_gradient 2
- material{ M_Green_Glass }
+  accuracy 0.01
+  max_gradient 2
+  material{ 
+    texture{pigment{rgb <0.04,0.43,0.28>}
+              finish {ambient 0.15
+                      diffuse 0.55
+                      brilliance 4.0
+                      phong 0.8
+                      phong_size 120
+                      reflection 0.6}
+              }
+   
+  }
+   normal{ bumps 0.03
+         scale <1,0.25,0.25>*1
+         turbulence 0.3
+       }
  
 }
+
 
 union {
   object{
@@ -262,5 +294,48 @@ union{
   object{ Front_Border }
   object{ Mid_Border }
 
-  texture {T_Grnt0}
+  texture {  pigment {rgb<0.95, 0.92, 0.85>} 
+  finish {
+        brilliance 0.5 
+        crand 0.05 
+        ambient 0.62
+        diffuse 0.6
+        phong 1
+      }}
+}
+
+object{
+  Right_Tile1
+  texture {  pigment {rgb<0.95, 0.92, 0.85>} 
+  finish {
+        brilliance 0.5 
+        crand 0.05 
+        ambient 0.62
+        diffuse 0.6
+        phong 1
+      }}
+}
+
+object{
+  Right_Tile2
+  texture {  pigment {rgb<0.95, 0.92, 0.85>} 
+  finish {
+        brilliance 0.5 
+        crand 0.05 
+        ambient 0.62
+        diffuse 0.6
+        phong 1
+      }}
+}
+
+object{
+  Right_Tile3
+  texture {  pigment {rgb<0.95, 0.92, 0.85>} 
+  finish {
+        brilliance 0.5 
+        crand 0.05 
+        ambient 0.62
+        diffuse 0.6
+        phong 1
+      }}
 }
