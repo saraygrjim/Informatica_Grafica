@@ -1,6 +1,12 @@
 #version 3.7;
-global_settings{ assumed_gamma 1.0 }
-#default{ finish{ ambient 0.5 diffuse 0.9 }} 
+global_settings{ 
+  assumed_gamma 1.0 
+  max_trace_level 10
+}
+#default{ 
+  finish{ ambient 0.1 diffuse 0.9 }
+}
+
 #include "colors.inc"
 #include "textures.inc"
 #include "glass.inc"
@@ -21,7 +27,9 @@ global_settings{ assumed_gamma 1.0 }
 camera{ Camera_0 }
 
 // sun
-light_source{<238,700,0> color rgb<1,0.9,0.8> parallel}
+light_source{<238,700,-100> color White*0.7 parallel}
+light_source{<2,10,0> color rgb<1,1,1>*0.2 shadowless}
+
 
 // sky ------------------------------------
 sphere{<0,0,0>,1 hollow
@@ -75,28 +83,54 @@ difference{
   box {
     <Pool_X+Border, 0, 0>, <Pool_X+2*Border, 10, Pool_Z+18> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
   }
+
+#declare Right_Border =
+  box {
+    <Pool_X+Border-0.01, 0, 0>, <Pool_X+2*Border, 0.2, Pool_Z+18> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+  }
+
 #declare Left_Wall =
 box {
   <Pool_X-15, 0, 0>, <Pool_X-17, 10, Pool_Z+18> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
 }
+
+#declare Left_Border =
+box {
+  <Pool_X-15+0.01, 0, 0>, <Pool_X-17, 0.2, Pool_Z+18> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+}
+
 #declare Front_Wall =
   box {
     <Pool_X+2*Border+0.01, 10, Pool_Z+6.5>, <Pool_X-20,0,Pool_Z+7.5> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
   }
+  
+#declare Front_Border =
+  box {
+    <Pool_X+2*Border+0.01, 0.2, Pool_Z+6.5-0.01>, <Pool_X-20,0,Pool_Z+7.5> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+  }
 
 #declare Mid_Wall =
   box {
-    <Pool_X-21, 7, Pool_Z+4>, <5,0,Pool_Z+5> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+    <Pool_X-21, 7, Pool_Z+3>, <5,0,Pool_Z+4> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
   }
+
+#declare Mid_Border =
+  box {
+    <Pool_X-21, 0.2, Pool_Z+3-0.01>, <5,0,Pool_Z+4> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+  }
+
+#declare Back_Wall =
+  box {
+    <Pool_X+2*Border+0.01, 10, -3>, <Pool_X-20,0,-4> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+  }
+  
 
 
 // ground : TO BE MOVED
 difference{
  plane{ <0,1,0>, 0 
   texture {
-    pigment { 
-      rgb <0.9961, 0.9922, 0.9569>
-    }
+    T_Grnt0
     finish{
       brilliance .6
       ambient 0.6
@@ -106,27 +140,35 @@ difference{
  }
  object{ Pool_Outer  
         texture{ Pool_Tex } 
-        //  transform Pool_Transformation 
        } 
 } 
 
 // placing of the pool: TO BE MOVED 
-object{ Pool 
-        // transform Pool_Transformation 
-        }   
+object{ Pool }   
 
 // transparent pool water //TODO: ADAPT 
 #declare Water_Material =  
 material{    
  texture{ 
-   pigment{ rgbf <0.3451,0.949,0.96,0.4627> }
-   finish { diffuse 0.1 reflection 0.5  
-            specular 0.8 roughness 0.0003 
-            phong 1 phong_size 400}
- }
- interior{ ior 1.3 caustics 0.15  
- }
-}
+    //pigment{ rgbf<.93,.95,.5,0.9>*0.95}
+    pigment{ rgbf<0.77,1,0.76,1>}
+     
+          finish { ambient 0.0
+                   diffuse 0.15
+                   reflection 0.2
+                   specular 0.6
+                   roughness 0.005
+                   reflection { 0.2, 1.0 fresnel on }
+                   conserve_energy
+                 }
+           } // end of texture
+         
+          interior{ ior 1.33 
+                    fade_power 1001
+                    fade_distance 0.5
+                    fade_color <0.8,0.8,0.8> 
+                } // end of interior
+        } // end of material
 
 // pigment pattern for modulation  
 // it will be applied as a function on y axis
@@ -156,43 +198,69 @@ isosurface {
     } 
  accuracy 0.01
  max_gradient 2
- material{ Water_Material }
-//  transform  Pool_Transformation  
+ material{ M_Green_Glass }
  
 }
 
 union {
   object{
       Right_Wall
-      // rotate y*3
   }
   object{
       Left_Wall
-      // rotate y*3
-      // translate y*0.5
-      // scale y*1.02
+    
   }
   object{
     Front_Wall
-    // translate x*2   
   }
   object{
     Mid_Wall
-    // translate x*2   
   }
+  texture{ 
+    pigment { 
+       color White
+      // Green
+    }
+    // finish { 
+    //   brilliance 0.5
+    //   specular 0.6
+    //   crand 0.05 
+    //   }    
+      finish {
+        brilliance 0.5 
+        crand 0.05 
+        ambient 0.62
+        diffuse 0.6
+        phong 1
+      }
+      normal {
+        bumps 0.1
+        scale 1.5
+      }
+   }
 
+  
+   
+}
+
+object {
+  Back_Wall
   texture{ 
     pigment { 
       White
       // Green
     }
     finish {
-      brilliance .6
-      ambient 0.6
-      // diffuse 1
-      //specular 0.3
+      reflection {1}
     }
-   }
-  // transform Pool_Transformation
-  
+  }
+}
+
+union{
+  object{ Right_Border }
+  object{ Left_Border }
+  object{ Front_Border }
+  object{ Mid_Border }
+
+  texture {T_Grnt0}
 }
