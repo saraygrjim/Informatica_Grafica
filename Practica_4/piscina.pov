@@ -19,6 +19,10 @@ global_settings{
 #include "functions.inc"
 #include "math.inc"
 #include "transforms.inc"
+#include "obj/TOMLEAF.inc" 
+#include "obj/tree2.inc"
+#include "obj/TOMTREE-1.5.inc"  
+#include "tex/our_textures.inc"
 
 #declare Camera_0 = camera {angle 100
                             location  <2 , 2 ,0>
@@ -47,17 +51,14 @@ sphere{<0,0,0>,1 hollow
 
 
 
-#declare Pool_Tex = 
-          texture{ pigment {rgb<0.95, 0.92, 0.85> }
-          finish{
-            brilliance 0.6
-            ambient 0.6
-          }  
-} 
+
 
 #declare Pool_X = 5.75;
 #declare Pool_Y = 3.00;
 #declare Pool_Z = 7.00;
+#declare Tree_X = -3;
+#declare Tree_Y = 0;
+#declare Tree_Z = 8;
 #declare Pool_Inner_Size = <5,-2,8>;
 #declare Border = 1.00;  
 
@@ -88,22 +89,7 @@ difference{
 
 #declare Right_Border =
   box {
-    <Pool_X+Border-0.05, 0, 0>, <Pool_X+2*Border, 0.2, Pool_Z+18> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
-  }
-
-#declare Right_Tile1 =
-  box {
-    <Pool_X+Border-0.05, 0, Pool_Z-1>, <Pool_X+2*Border, 1, Pool_Z> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
-  }
-
-#declare Right_Tile2 =
-  box {
-    <Pool_X+Border-0.05, 1.05, Pool_Z-1>, <Pool_X+2*Border, 2.05, Pool_Z> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
-  }
-
-#declare Right_Tile3 =
-  box {
-    <Pool_X+Border-0.05, 2.1, Pool_Z-1>, <Pool_X+2*Border, 3.1, Pool_Z> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+    <Pool_X+Border-0.05, 0, Pool_Z>, <Pool_X+2*Border, 0.2, Pool_Z+18> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
   }
 
 #declare Left_Wall =
@@ -157,50 +143,18 @@ difference{
  }
  object{ Pool_Outer  
         texture{ Pool_Tex } 
-       } 
+       }
+  box{  <Tree_X-0.75,-2,Tree_Z-0.75>, <Tree_X+0.75,0.001,Tree_Z+0.75> }
 } 
 
 // placing of the pool: TO BE MOVED 
 object{ Pool }   
 
 // transparent pool water //TODO: ADAPT 
-#declare Water_Material =  
-material{    
- texture{ 
-    //pigment{ rgbf<.93,.95,.5,0.9>*0.95}
-    pigment{ rgbf<0.77,1,0.76,1>}
-     
-          finish { ambient 0.0
-                   diffuse 0.15
-                   reflection 0.2
-                   specular 0.6
-                   roughness 0.005
-                   reflection { 0.2, 1.0 fresnel on }
-                   conserve_energy
-                 }
-           } // end of texture
-         
-          interior{ ior 1.33 
-                    fade_power 1001
-                    fade_distance 0.5
-                    fade_color <0.8,0.8,0.8> 
-                } // end of interior
-        } // end of material
 
-// pigment pattern for modulation  
-// it will be applied as a function on y axis
-// creating a wavy surface.
-#declare Pigment_01 =  
- pigment{ //bumps 
-          //turbulence 0
-          scale <3,1,3>*0.12
-          translate<1,0,0>
- } 
 
-#declare Pigment_Function_01 = 
-function { 
-  pigment { Pigment_01 }
-} 
+
+
 
 isosurface {
  function{
@@ -215,64 +169,69 @@ isosurface {
     } 
   accuracy 0.01
   max_gradient 2
-  material{ 
-    texture{pigment{rgb <0.04,0.43,0.28>}
-              finish {ambient 0.15
-                      diffuse 0.55
-                      brilliance 4.0
-                      phong 0.8
-                      phong_size 120
-                      reflection 0.6}
-              }
-   
-  }
-   normal{ bumps 0.03
-         scale <1,0.25,0.25>*1
-         turbulence 0.3
-       }
- 
+  material { Water_Material }
+  //  normal{ bumps 0.1
+  //        scale <1,0.25,0.25>*0.6
+  //        turbulence 0.1
+  //      }
 }
 
+isosurface {
+  function {
+    y
+  }
+  contained_by {
+    box{
+       <Tree_X-0.75,-2,Tree_Z-0.75>, <Tree_X+0.75,0.001,Tree_Z+0.75>
+    }
+  }
+  accuracy 0.01
+  max_gradient 2
+  pigment { 
+    Soil_pigment
+  }
+}
 
 union {
-  object{
-      Right_Wall
-  }
-  object{
-      Left_Wall
-    
-  }
   object{
     Front_Wall
   }
   object{
     Mid_Wall
   }
-  texture{ 
-    pigment { 
-       color White
-      // Green
-    }
-    // finish { 
-    //   brilliance 0.5
-    //   specular 0.6
-    //   crand 0.05 
-    //   }    
-      finish {
-        brilliance 0.5 
-        crand 0.05 
-        ambient 0.62
-        diffuse 0.6
-        phong 1
-      }
-      normal {
-        bumps 0.1
-        scale 1.5
-      }
-   }
+  texture { Wall_Tex }
+  // texture{ 
+  //   pigment { 
+  //      color White
+  //     // Green
+  //   }
+  //   // finish { 
+  //   //   brilliance 0.5
+  //   //   specular 0.6
+  //   //   crand 0.05 
+  //   //   }    
+  //   finish {
+  //     brilliance 0.5 
+  //     crand 0.05 
+  //     ambient 0.62
+  //     diffuse 0.6
+  //     phong 1
+  //   }
+  //   normal {
+  //     bumps 0.1
+  //     scale 1.5
+  //   }
+  // }
+}
 
-  
-   
+object{
+    Right_Wall
+    texture { RWall_Tex }
+}
+
+object{
+    Left_Wall
+    texture { LWall_Tex }
 }
 
 object {
@@ -293,7 +252,6 @@ union{
   object{ Left_Border }
   object{ Front_Border }
   object{ Mid_Border }
-
   texture {  pigment {rgb<0.95, 0.92, 0.85>} 
   finish {
         brilliance 0.5 
@@ -304,38 +262,34 @@ union{
       }}
 }
 
-object{
-  Right_Tile1
-  texture {  pigment {rgb<0.95, 0.92, 0.85>} 
-  finish {
-        brilliance 0.5 
-        crand 0.05 
-        ambient 0.62
-        diffuse 0.6
-        phong 1
-      }}
-}
+//------------------tiles-----------
+#declare Z1 = Pool_Z-1;
+#declare Z2 = Pool_Z;
 
-object{
-  Right_Tile2
-  texture {  pigment {rgb<0.95, 0.92, 0.85>} 
-  finish {
-        brilliance 0.5 
-        crand 0.05 
-        ambient 0.62
-        diffuse 0.6
-        phong 1
-      }}
-}
+#for(i, 0, 7)
+    box {
+        <Pool_X+Border-0.02, 0, Z1-i>, <Pool_X+2*Border, 1, Z2-i> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+        texture { Tile_Tex }
+    }
 
-object{
-  Right_Tile3
-  texture {  pigment {rgb<0.95, 0.92, 0.85>} 
-  finish {
-        brilliance 0.5 
-        crand 0.05 
-        ambient 0.62
-        diffuse 0.6
-        phong 1
-      }}
-}
+    box {
+        <Pool_X+Border-0.02, 1, Z1-i>, <Pool_X+2*Border, 2, Z2-i> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+        texture { Tile_Tex }
+    }
+
+    box {
+        <Pool_X+Border-0.02, 2, Z1-i>, <Pool_X+2*Border, 3, Z2-i> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+        texture { Tile_Tex }
+    }
+#end
+
+
+//-------------------tree-------------------
+#declare Tree_01 = object{TREE double_illuminate hollow}
+object{ Tree_01
+        scale 10
+        rotate< 0, 0, 0>
+        translate< Tree_X, Tree_Y, Tree_Z>
+      } //--------------------------------------------
+//----------------------------------------------------
+
