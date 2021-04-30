@@ -56,9 +56,10 @@ sphere{<0,0,0>,1 hollow
 #declare Pool_X = 5.75;
 #declare Pool_Y = 3.00;
 #declare Pool_Z = 7.00;
-#declare Tree_X = -3;
-#declare Tree_Y = 0;
-#declare Tree_Z = 8;
+#declare TreeBox_X1 = -3;
+#declare TreeBox_X2 = -1;
+#declare TreeBox_Z1 = Pool_Z;
+#declare TreeBox_Z2 = Pool_Z+1;
 #declare Pool_Inner_Size = <5,-2,8>;
 #declare Border = 1.00;  
 
@@ -78,7 +79,7 @@ sphere{<0,0,0>,1 hollow
 
 #declare Pool = 
 difference{
- object{ Pool_Outer texture{Pool_Tex}}
+ object{ Pool_Outer texture{Floor_Tex}}
  object{ Pool_Inner texture{Pool_Tex}} 
 } 
 
@@ -132,28 +133,21 @@ box {
 // ground : TO BE MOVED
 difference{
  plane{ <0,1,0>, 0 
-  texture {
-    pigment {rgb<0.95, 0.92, 0.85>}
-    finish{
-      brilliance .6
-      ambient 0.6
-    }
-    
-  }
+  texture { Floor_Tex }
  }
  object{ Pool_Outer  
         texture{ Pool_Tex } 
        }
-  box{  <Tree_X-0.75,-2,Tree_Z-0.75>, <Tree_X+0.75,0.001,Tree_Z+0.75> }
+  box{  
+    <TreeBox_X1,-2,TreeBox_Z1>, <TreeBox_X2,0.001,TreeBox_Z2> 
+    texture { Pool_Tex}
+  }
 } 
 
 // placing of the pool: TO BE MOVED 
 object{ Pool }   
 
 // transparent pool water //TODO: ADAPT 
-
-
-
 
 
 isosurface {
@@ -180,16 +174,15 @@ isosurface {
   function {
     y
   }
+  threshold -0.1
   contained_by {
     box{
-       <Tree_X-0.75,-2,Tree_Z-0.75>, <Tree_X+0.75,0.001,Tree_Z+0.75>
+        <TreeBox_X1,-2,TreeBox_Z1>, <TreeBox_X2,0.001,TreeBox_Z2>
     }
   }
   accuracy 0.01
   max_gradient 2
-  pigment { 
-    Soil_pigment
-  }
+  texture { Soil_Tex }
 }
 
 union {
@@ -200,28 +193,6 @@ union {
     Mid_Wall
   }
   texture { Wall_Tex }
-  // texture{ 
-  //   pigment { 
-  //      color White
-  //     // Green
-  //   }
-  //   // finish { 
-  //   //   brilliance 0.5
-  //   //   specular 0.6
-  //   //   crand 0.05 
-  //   //   }    
-  //   finish {
-  //     brilliance 0.5 
-  //     crand 0.05 
-  //     ambient 0.62
-  //     diffuse 0.6
-  //     phong 1
-  //   }
-  //   normal {
-  //     bumps 0.1
-  //     scale 1.5
-  //   }
-  // }
 }
 
 object{
@@ -248,18 +219,15 @@ object {
 }
 
 union{
-  object{ Right_Border }
   object{ Left_Border }
   object{ Front_Border }
   object{ Mid_Border }
-  texture {  pigment {rgb<0.95, 0.92, 0.85>} 
-  finish {
-        brilliance 0.5 
-        crand 0.05 
-        ambient 0.62
-        diffuse 0.6
-        phong 1
-      }}
+  texture { Border_Tex }
+}
+
+union{
+  object{ Right_Border }
+  texture { RBorder_Tex }
 }
 
 //------------------tiles-----------
@@ -288,8 +256,7 @@ union{
 #declare Tree_01 = object{TREE double_illuminate hollow}
 object{ Tree_01
         scale 10
-        rotate< 0, 0, 0>
-        translate< Tree_X, Tree_Y, Tree_Z>
+        translate< (TreeBox_X2+TreeBox_X1)/2, 0, (TreeBox_Z2+TreeBox_Z1)/2>
       } //--------------------------------------------
 //----------------------------------------------------
 

@@ -122,25 +122,22 @@
 #declare PALM_TRUNK=0;
 //FOLIAGE
 #include "obj/TOMLEAF.inc"
-#declare Mesh4a = mesh {
-	triangle{<0.65, 0.0, 0.5>, <0.49999997, 0.0, 0.15>, <0.0, 0.0, 2.9802322E-8>}
-	triangle{<0.49999997, 0.0, 0.15>, <0.0, 0.0, 2.9802322E-8>, <0.49999997, 0.0, -0.14999998>}
-	triangle{<0.49999997, 0.0, 0.15>, <0.49999997, 0.0, -0.14999998>, <1.0, 0.0, 0.0>}
-	triangle{<0.0, 0.0, 2.9802322E-8>, <0.49999997, 0.0, -0.14999998>, <0.65, 0.0, -0.5>}
+#declare Mesh1 = mesh {
+	triangle{<0.0, 0.0, -0.5>, <1.0, 0.0, 0.0>, <0.0, 0.0, 0.5>}
 };
-#declare LEAF_TYPE=Mesh4a;
-#declare LEAVES=232*BUNCHES;
-#declare LEAF_LENGTH=8.33333;
-#declare LEAF_BREADTH=10.08772;
-#declare LEAF_HEIGHT=2.89474;
-#declare MAX_LEAF_TILT=0.0;
-#declare MAX_LEAF_TURN=12.63158;
-#declare LEAF_INCLINATION=53.68421;
-#declare LEAF_INCLINATION_SCOPE=18.94737;
-#declare BOTTOM_COLOR_1=<0.0, 0.29268, 0.0, 0.0, 0.0>;
-#declare BOTTOM_COLOR_2=<0.0, 0.18293, 0.0, 0.0, 0.0>;
-#declare TOP_COLOR_1=<0.4939, 0.4939, 0.0, 0.0, 0.0>;
-#declare TOP_COLOR_2=<0.65854, 0.53, 0.0, 0.0, 0.0>;
+#declare LEAF_TYPE=Mesh1;
+#declare LEAVES=180*BUNCHES;
+#declare LEAF_LENGTH=14;
+#declare LEAF_BREADTH=3;
+#declare LEAF_HEIGHT=1;
+#declare MAX_LEAF_TILT=10;
+#declare MAX_LEAF_TURN=10;
+#declare LEAF_INCLINATION=30;
+#declare LEAF_INCLINATION_SCOPE=4;
+#declare BOTTOM_COLOR_1=<0.0, 0.53, 0.0, 0.0, 0.0>;
+#declare BOTTOM_COLOR_2=<0.0, 0.53, 0.0, 0.0, 0.0>;
+#declare TOP_COLOR_1=<0.0, 0.53, 0.0, 0.0, 0.0>;
+#declare TOP_COLOR_2=<0.0, 0.53, 0.0, 0.0, 0.0>;
 #declare COLOR_TURB=0;
 #declare TRANSITION_BOTTOM_TOP=0;
 #declare TRANSITION_TURB=0;

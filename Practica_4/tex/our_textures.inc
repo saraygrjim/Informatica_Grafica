@@ -23,6 +23,19 @@ material{
   }
   interior {ior 1.33}
 }
+#declare Soil_Tex = 
+  texture { 
+    pigment{ 
+      image_map { 
+          jpeg "tex/soil.jpeg" 
+          map_type 0  // Esfera 
+      } 
+      rotate x*90
+    }    
+    finish { 
+      ambient 0.62 
+    } 
+}
 
 #declare Soil_pigment = pigment { rgb<0.77,0.6,0.35>*0.7}
 // #declare Soil_function = {
@@ -77,7 +90,7 @@ material{
       rotate y*-90
     }    
     finish { 
-      brilliance 0.5  
+      brilliance 0.8  
       crand 0.05  
       specular 0.6 
       ambient 0.62 
@@ -119,9 +132,65 @@ material{
       crand 0.05 
       ambient 0.62
       diffuse 0.6
-      phong 1
+      phong 0.9 phong_size 60
     }
       // scale x*4
       // scale y*4
       rotate 90*y
+  }
+
+
+
+#declare Floor_Tex = 
+  texture {
+    pigment{
+      image_map {
+          jpeg "tex/floor.jpeg"
+          map_type 0  // Esfera
+      }
+    }
+    finish{
+      brilliance .6
+      ambient 0.6
+    }
+    scale 5
+    rotate 90*x
+  }
+
+#declare Border_Tex = 
+  texture {
+    pigment{
+      image_map {
+          jpeg "tex/floor.jpeg"
+          map_type 0  // Esfera
+      }
+    }
+    finish {
+      brilliance 0.5 
+      crand 0.05 
+      ambient 0.62
+      diffuse 0.6
+      phong 1
+    }
+    scale 5
+    // rotate 90*x
+  }
+
+#declare RBorder_Tex = 
+  texture {
+    pigment{
+      image_map {
+          jpeg "tex/floor.jpeg"
+          map_type 0  // Esfera
+      }
+    }
+    finish {
+      brilliance 0.5 
+      crand 0.05 
+      ambient 0.62
+      diffuse 0.6
+      phong 1
+    }
+    scale 5
+    rotate 90*y
   }
