@@ -24,6 +24,7 @@ global_settings{
 #include "obj/TOMTREE-1.5.inc"  
 #include "tex/our_textures.inc"
 
+
 #declare Camera_0 = camera {angle 100
                             location  <2 , 2 ,0>
                             right     x*image_width/image_height
@@ -48,10 +49,6 @@ sphere{<0,0,0>,1 hollow
   } // end of texture
  scale 10000
  } // end of sphere -----------------------
-
-
-
-
 
 #declare Pool_X = 5.75;
 #declare Pool_Y = 3.00;
@@ -259,4 +256,85 @@ object{ Tree_01
         translate< (TreeBox_X2+TreeBox_X1)/2, 0, (TreeBox_Z2+TreeBox_Z1)/2>
       } //--------------------------------------------
 //----------------------------------------------------
+
+
+light_source{
+  <Pool_X, 1, Pool_Z-2>
+  color White
+  spotlight
+   radius 15
+    //falloff 20
+    tightness 10
+  point_at <Pool_X+Border, 0, Pool_Z-2>
+}
+// 
+
+
+#include "./obj/rock.inc"
+
+object {
+  rock
+   texture {
+    pigment { color rgb <0.75, 0.75, 0.75> }
+    finish { ambient 0.1 diffuse 0.6 phong 0.0}
+  }
+  scale 0.25
+  rotate z*30
+  translate <Pool_X+Border-0.3, 0.1, Pool_Z-2>
+}
+
+object {
+  rock
+   texture {
+    pigment { color rgb <0.75, 0.75, 0.75>*0.87 }
+    finish { ambient 0.1 diffuse 0.6 phong 0.0}
+  }
+  scale 0.15
+  translate <Pool_X+Border-0.3, 0.3, Pool_Z-2.05>
+}
+
+object {
+  rock
+   texture {
+    pigment { color rgb <0.75, 0.75, 0.75> }
+    finish { ambient 0.1 diffuse 0.6 phong 0.0}
+  }
+  scale 0.20
+  translate <Pool_X+Border-0.3, 0.1, Pool_Z-2.4>
+  // rotate x*-15
+}
+
+object {
+  rock
+   texture {
+    pigment { color rgb <0.75, 0.75, 0.75>*0.87 }
+    finish { ambient 0.1 diffuse 0.6 phong 0.0}
+  }
+  scale 0.15
+  rotate z*10
+  translate <Pool_X+Border-0.3, 0.25, Pool_Z-2.3>
+}
+
+object {
+  rock
+   texture {
+    pigment { color rgb <0.75, 0.75, 0.75>*0.87 }
+    finish { ambient 0.1 diffuse 0.6 phong 0.0}
+  }
+  scale 0.15
+  rotate z*30
+  translate <Pool_X+Border-0.3, 0.4, Pool_Z-2.15>
+}
+
+// object {
+//   rock
+//    texture {
+//     pigment { color rgb <0.75, 0.75, 0.75> }
+//     finish { ambient 0.1 diffuse 0.6 phong 0.0}
+//   }
+//   scale 0.25
+//   translate <Pool_X+Border-0.3, 0.2, Pool_Z-2-0.5>
+// }
+
+
 

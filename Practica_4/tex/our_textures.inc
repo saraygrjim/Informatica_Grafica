@@ -10,7 +10,7 @@
 #declare Water_Material =  
 material{    
   texture {
-    pigment { rgbf <0.8, 1, 0.98, 0.9> }
+    pigment { rgbf <0.8, 1, 0.98, 0.3> }
     finish  {
         ambient 0.1
         diffuse 0.1
@@ -59,6 +59,7 @@ material{
         pigment { Pigment_01 }
     } 
 
+//Right wall
 #declare RWall_Tex = 
     texture { 
     pigment{ 
@@ -73,12 +74,13 @@ material{
       brilliance 0.5  
       crand 0.05  
       specular 0.6 
-      ambient 0.62 
-      diffuse 0.6 
+      ambient 0.5 
+      diffuse 0.9 
       phong 1 
     } 
 }
 
+//Left Wall
 #declare LWall_Tex = 
     texture { 
     pigment{ 
@@ -93,13 +95,13 @@ material{
       brilliance 0.8  
       crand 0.05  
       specular 0.6 
-      ambient 0.62 
-      diffuse 0.6 
+      ambient 0.5 
+      diffuse 0.9 
       phong 1 
     } 
 }
 
-
+// Front wall
 #declare Wall_Tex = 
     texture { 
     pigment{ 
@@ -113,8 +115,8 @@ material{
       brilliance 0.5  
       crand 0.05  
       specular 0.6 
-      ambient 0.62 
-      diffuse 0.6 
+      ambient 0.5 
+      diffuse 0.9 
       phong 1 
     } 
 }
@@ -128,11 +130,11 @@ material{
       }
     }
     finish {
-      brilliance 0.5 
+      brilliance 0.6 
       crand 0.05 
-      ambient 0.62
+      ambient 0.8
       diffuse 0.6
-      phong 0.9 phong_size 60
+      phong 1
     }
       // scale x*4
       // scale y*4
