@@ -1,28 +1,33 @@
 #declare Pool_Tex = 
-          texture{ pigment {rgb<0.95, 0.92, 0.85> }
-          finish{
-            brilliance 0.6
-            ambient 0.6
-          }  
-} 
+  texture{ 
+    pigment {rgb<0.95, 0.92, 0.85> }
+    finish{
+      brilliance 0.6
+      ambient 0.6
+    }  
+  } 
 
 
 #declare Water_Material =  
-material{    
-  texture {
-    pigment { rgbf <0.8, 1, 0.98, 0.3> }
-    finish  {
-        ambient 0.1
-        diffuse 0.1
-        reflection 0.1
-        specular 0.8
-        roughness 0.0003
-        phong 1 
-        phong_size 400
-     }
+  material{ 
+    texture {
+      pigment { rgbf <0.66, 0.83, 0.75, 1>*0.5 }
+      finish  {
+          ambient 0
+          diffuse 0.7
+          reflection 0.35
+          roughness 0.0003
+        }
+        normal {
+            bumps
+            scale <200,10,200>
+        }
+    }
+    interior {ior 1.33}
   }
-  interior {ior 1.33}
-}
+    
+  
+    
 #declare Soil_Tex = 
   texture { 
     pigment{ 
@@ -35,23 +40,14 @@ material{
     finish { 
       ambient 0.62 
     } 
-}
+  }
 
 #declare Soil_pigment = pigment { rgb<0.77,0.6,0.35>*0.7}
-// #declare Soil_function = {
-//   pigment { 
-//     Soil_pigment
-//   }
-// }
 
-// pigment pattern for modulation  
-// it will be applied as a function on y axis
-// creating a wavy surface.
 #declare Pigment_01 =  
-    pigment{ //bumps 
-            //turbulence 0
-            scale <3,1,3>*0.12
-            translate<1,0,0>
+    pigment{ 
+      scale <3,1,3>*0.12
+      translate<1,0,0>
     } 
 
 #declare Pigment_Function_01 = 
@@ -61,7 +57,7 @@ material{
 
 //Right wall
 #declare RWall_Tex = 
-    texture { 
+  texture { 
     pigment{ 
       image_map { 
           jpeg "tex/wall.jpeg" 
@@ -71,18 +67,18 @@ material{
       rotate y*90
     }    
     finish { 
-      brilliance 0.5  
+      brilliance 0.3
       crand 0.05  
       specular 0.6 
       ambient 0.5 
       diffuse 0.9 
       phong 1 
     } 
-}
+  }
 
 //Left Wall
 #declare LWall_Tex = 
-    texture { 
+  texture { 
     pigment{ 
       image_map { 
           jpeg "tex/wall.jpeg" 
@@ -92,18 +88,18 @@ material{
       rotate y*-90
     }    
     finish { 
-      brilliance 0.8  
+      brilliance 0.3  
       crand 0.05  
       specular 0.6 
       ambient 0.5 
       diffuse 0.9 
       phong 1 
     } 
-}
+  }
 
 // Front wall
 #declare Wall_Tex = 
-    texture { 
+  texture { 
     pigment{ 
       image_map { 
           jpeg "tex/wall.jpeg" 
@@ -112,14 +108,14 @@ material{
       scale 10 
     }    
     finish { 
-      brilliance 0.5  
+      brilliance 0.3  
       crand 0.05  
       specular 0.6 
       ambient 0.5 
       diffuse 0.9 
       phong 1 
     } 
-}
+  }
 
 #declare Tile_Tex = 
   texture {
