@@ -15,6 +15,8 @@ global_settings{assumed_gamma 1.0}
 #include "math.inc"
 #include "transforms.inc"
 #include "obj/Window.pov"
+#include "obj/Couch2.pov"
+#include "obj/Pillows.pov"
 
 
 #declare Camera_1 = 
@@ -119,4 +121,43 @@ union{
 
  
     translate<0,0.01,0>
+}
+
+
+object{
+  couch
+  scale 0.85
+  rotate y*180
+  translate<R_x-2, 0, R_z-2>
+  texture{
+      pigment{
+          image_map {
+            jpeg "textures/Fabric_Couch.jpeg"
+            interpolate 2
+          }
+      }
+      finish {
+        ambient .2
+        diffuse .6
+        specular .1
+        // roughness .001
+        // reflection {
+        //    .5
+        // }
+     }
+  }
+}
+
+object{
+  pillows
+  // rotate y*180
+  scale 0.85
+  translate<R_x-2, 0, R_z-2>
+  // scale 0.5
+  pigment{
+      image_map {
+        jpeg "textures/pillows.jpeg"
+        interpolate 2
+      }
+    }
 }
