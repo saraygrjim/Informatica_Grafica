@@ -17,7 +17,7 @@ global_settings{assumed_gamma 1.0}
 #include "obj/Window.pov"
 #include "obj/Couch2.pov"
 #include "obj/Pillows.pov"
-
+#include "obj/table.pov"
 
 #declare Camera_1 = 
 camera { angle 50    
@@ -212,3 +212,12 @@ object{
     }
 }
 
+
+object{ 
+    Table( 0.3, // Table__Height, 
+           0.8, // Table__Half_Width_X, 
+           0.6, // Table__Half_Width_Z, 
+           0.02  // Table__Feet_Radius, 
+     )
+     translate< R_x-2,0,R_z-3.5>
+}
