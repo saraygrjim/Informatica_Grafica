@@ -18,6 +18,10 @@ global_settings{assumed_gamma 1.0}
 #include "obj/Couch2.pov"
 #include "obj/Pillows.pov"
 #include "obj/table.pov"
+#include "obj/TOMLEAF.inc" 
+#include "obj/tree2.inc"
+#include "obj/TOMTREE-1.5.inc"  
+#include "obj/lamp.pov"
 
 #declare Camera_1 = 
 camera { angle 50    
@@ -28,10 +32,10 @@ camera { angle 50
 
 camera{Camera_1}
 
-// sun --------------------------------------------------------------------
+//---------------------------------- sun ----------------------------------
 light_source{< 1200, 750, 400>  color White*1.2}   // keep sun below the clouds! 
 
-// sky ---------------------------------------------------------------------
+//---------------------------------- sky ----------------------------------
 // the dark blue
 plane{ <0,1,0>,1 hollow  
        texture{ pigment { color rgb <0.20, 0.20, 1.0> }
@@ -49,7 +53,7 @@ plane{<0,1,0>,1 hollow
               }      
        scale 800}
 
-// fog in the far -----------------------------------------------------------
+//----------------------------- fog in the far -----------------------------
 fog{ fog_type   2 // ground fog 
      distance   50
      color      White
@@ -58,7 +62,7 @@ fog{ fog_type   2 // ground fog
      turbulence 0.8
    }
 
-// ground ------------------------------------------------------------------
+//--------------------------------- ground ---------------------------------
 plane { <0,1,0>, 0 
         texture { pigment{ color rgb<0.35,0.65,0.0>*0.72}
                   normal { bumps 0.75 scale 0.015  }
@@ -100,7 +104,7 @@ plane { <0,1,0>, 0
     finish{ brilliance .6 }
   } 
 
-// The room -------------------------------------------------------- 
+//---------------------------- The room ---------------------------- 
 // The room is the difference between an outter big box and a interior box
 // there is also a hole for the window 
 union{ 
@@ -176,7 +180,7 @@ box {
 
 object{
   couch
-  scale 0.85
+  // scale 0.85
   rotate y*180
   translate<R_x-2, 0, R_z-2>
   texture{
@@ -199,7 +203,7 @@ object{
 object{
   pillows
   // rotate y*180
-  scale 0.85
+  // scale 0.85
   translate<R_x-2, 0, R_z-2>
   // scale 0.5
   pigment{
@@ -212,7 +216,7 @@ object{
     }
 }
 
-
+// --------------------- Table ---------------------
 object{ 
     Table( 0.3, // Table__Height, 
            0.8, // Table__Half_Width_X, 
@@ -220,4 +224,126 @@ object{
            0.02  // Table__Feet_Radius, 
      )
      translate< R_x-2,0,R_z-3.5>
+}
+
+// --------------------- Tree ---------------------
+#declare Tree_01 = object{TREE double_illuminate hollow}
+object{ Tree_01
+        scale 2
+        translate< R_x+2, 0, R_z-0.5>
+      } 
+
+// --------------------- Frame object ---------------------
+#declare frame = 
+object{
+    difference {
+        box {
+            <0, 0, 0>, <3, 4, 0.25> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+        }
+        box {
+            <0.3, 0.3, -0.3>, <2.7, 3.7, 0.8> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+        }
+    }
+}
+
+#declare paint = 
+box{
+  <0.3, 0.3, 0>, <2.7, 3.7, 0.01>
+}
+
+// --------------------- Frame p1 ---------------------
+object {
+  frame
+  scale 0.2
+  translate <R_x-1.5, 1.2, R_z-0.1>
+  texture { T_Wood12 }
+}
+
+object {
+  paint
+  texture{
+    pigment{
+        image_map {
+          png "scenes/p1.png"
+          map_type 0
+        }
+        scale 4
+    }
+  }
+  scale 0.2
+  translate <R_x-1.5, 1.2, R_z-0.07> 
+}
+
+
+// --------------------- Frame p3 ---------------------
+object {
+  frame
+  rotate z*90
+  scale 0.3
+  translate <R_x-2, 1.4, R_z-0.1>
+  texture { T_Wood17 }
+}
+
+object {
+  paint
+  rotate z*90
+  texture{
+    pigment{
+        image_map {
+          tiff "scenes/p3.tif"
+          map_type 0
+        }
+        scale 3
+    }
+  }
+  scale 0.3
+  translate <R_x-2, 1.4, R_z-0.07>
+}
+
+// --------------------- Frame p4 ---------------------
+object {
+  frame
+  rotate y*90
+  scale 0.3
+  translate <R_x-0.05, 1.1, R_z-0.75>
+  texture { T_Wood17 }
+}
+
+object {
+  paint
+  rotate y*90
+  texture{
+    pigment{
+        image_map {
+          png "scenes/p4.png"
+          map_type 0
+        }
+        scale 4
+        rotate y*90
+    }
+  }
+  scale 0.3
+  translate <R_x-0.02, 1.1, R_z-0.75>
+
+}
+
+// --------------------- lamp ---------------------
+
+cylinder {
+  <0, 0, -1>, <0, 0, 1>, 0.005 // center of one end, center of other end, radius
+  pigment{color Black}
+  rotate x*90
+  translate <R_x-1.94, 2.9, R_z-3>
+}
+
+object {
+  lamp
+  scale 0.001
+  translate <R_x-2, 1.9, R_z-3>
+  texture{ pigment { Black } }
+  // texture {T_Brass_1A}
+  finish { 
+    brilliance 0 
+    reflection 0 
+  }
 }
