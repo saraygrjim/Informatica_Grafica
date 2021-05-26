@@ -85,20 +85,35 @@ plane { <0,1,0>, 0
 #local DF_d = 0.08; // outer door frame 
 #local DF_z = 0.05; // outer door frame 
 
+
+#declare Wall_Texture = 
+  texture { 
+    uv_mapping
+    pigment{
+        image_map {
+        jpeg "textures/wall.jpeg"
+        interpolate 2
+      }
+      scale 10
+    } 
+    // normal { bozo scale 0.1 }
+    finish{ brilliance .6 }
+  } 
+
 // The room -------------------------------------------------------- 
 // The room is the difference between an outter big box and a interior box
 // there is also a hole for the window 
 union{ 
     difference{ 
-      box{<-Wall_D,-Wall_D,-Wall_D>,<R_x+Wall_D,R_y+Wall_D,R_z+Wall_D> }  
+      box{<-Wall_D,-Wall_D,-Wall_D>,<R_x+Wall_D,R_y+Wall_D,R_z+Wall_D>}  
       box{<0,0,0>,<R_x,R_y,R_z> }  
       object{ Window_Hole transform Window_Transform} 
+      texture { Wall_Texture } 
 
       hollow
-      texture{ Wall_Texture } 
     } // end difference 
 
-    object{ Window transform Window_Transform } 
+    object{ Window transform Window_Transform} 
 
 
     //--------------------------------------------------------------
@@ -121,8 +136,43 @@ union{
 
  
     translate<0,0.01,0>
+    texture { Wall_Texture }
 }
 
+
+// --------------------- Floor ---------------------
+#declare material_parquet = texture {
+  uv_mapping
+  pigment {
+    image_map {
+      jpeg "textures/parquet.jpeg" interpolate 4
+    }
+
+  }
+  normal {
+    uv_mapping
+    bump_map {
+      jpeg "textures/parquet.jpeg" interpolate 4 bump_size 2
+    }
+  }
+  finish {
+    ambient 0.0
+    diffuse 0.8
+    specular 0.6
+    reflection { 0.1 }
+  }
+}
+
+
+box {
+  <0,0.01,0>, <R_x, 0.02, R_z> // <x, y, z> near lower left corner, <x, y, z> far upper right corner
+  texture{
+    material_parquet
+  }
+}
+
+
+// --------------------- Couch ---------------------
 
 object{
   couch
@@ -135,18 +185,16 @@ object{
             jpeg "textures/Fabric_Couch.jpeg"
             interpolate 2
           }
+          
       }
       finish {
         ambient .2
         diffuse .6
-        specular .1
-        // roughness .001
-        // reflection {
-        //    .5
-        // }
+        specular .2
      }
   }
 }
+
 
 object{
   pillows
@@ -156,8 +204,11 @@ object{
   // scale 0.5
   pigment{
       image_map {
-        jpeg "textures/pillows.jpeg"
+        jpeg "textures/pillows5.jpeg"
         interpolate 2
       }
+      translate x*-0.2
+      scale 0.9
     }
 }
+

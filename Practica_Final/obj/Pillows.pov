@@ -2,20 +2,6 @@
 #include "textures.inc"
 #include "shapes.inc"
 
-// Camera position
-// camera {
-//  right     < 0, 0, 0 >
-//  up        < 0, 1, 0 >
-//  direction < 0, 0, 1 >
-//  location  < 0, 0, 1 >
-//  look_at   < 0, 0, 0 >
-// }
-// //Light _light0
-// light_source { < 10, 10, 10 >
-// color White
-// }
-
-
 // Object Object_1
 #declare pillows = 
 object {
