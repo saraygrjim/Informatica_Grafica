@@ -54,6 +54,14 @@ plane{<0,1,0>,1 hollow
        scale 800}
 
 //----------------------------- fog in the far -----------------------------
+fog{ 
+    fog_type   2
+    distance   1000
+    color      rgb<1,1,1>*0.9
+    fog_offset 0.1
+    fog_alt    20
+    turbulence 1.8
+}
 // fog{ fog_type   2 // ground fog 
 //      distance   50
 //      color      White
@@ -124,7 +132,7 @@ union{
     // A low light_source inside the room 
     // without interaction with media 
     // to see what's in the room:
-    light_source { <R_x/2, R_y-0.5,0.5>, 0.3 media_interaction off }
+    light_source { <R_x/2, R_y-0.5,0.5>, 0.3 media_interaction off shadowless}
 
     // Scattering media box:
     box{ <0,0,0>, <R_x, R_y, R_z>
