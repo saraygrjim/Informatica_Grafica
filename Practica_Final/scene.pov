@@ -54,13 +54,13 @@ plane{<0,1,0>,1 hollow
        scale 800}
 
 //----------------------------- fog in the far -----------------------------
-fog{ fog_type   2 // ground fog 
-     distance   50
-     color      White
-     fog_offset 0.1
-     fog_alt    2.0
-     turbulence 0.8
-   }
+// fog{ fog_type   2 // ground fog 
+//      distance   50
+//      color      White
+//      fog_offset 0.1
+//      fog_alt    2.0
+//      turbulence 0.8
+//    }
 
 //--------------------------------- ground ---------------------------------
 plane { <0,1,0>, 0 
@@ -333,17 +333,37 @@ cylinder {
   <0, 0, -1>, <0, 0, 1>, 0.005 // center of one end, center of other end, radius
   pigment{color Black}
   rotate x*90
-  translate <R_x-1.94, 2.9, R_z-3>
+  translate <R_x-1.94, 3.0, R_z-3>
 }
 
 object {
   lamp
   scale 0.001
-  translate <R_x-2, 1.9, R_z-3>
-  texture{ pigment { Black } }
+  translate <R_x-2, 2.0, R_z-3>
+  texture{ T_Brass_1A }
   // texture {T_Brass_1A}
-  finish { 
-    brilliance 0 
-    reflection 0 
-  }
+  // finish { 
+  //   brilliance 0 
+  //   reflection 0 
+  // }
 }
+
+light_source { 
+  <0,0,0> color rgb<0.96, 0.93, 0.82>
+  spotlight
+  jitter
+  radius 5
+  falloff 14
+  adaptive 1
+  tightness 10
+  looks_like{ 
+    sphere{ 
+      <0,0,0>,0.1
+      texture { pigment { rgb<0.96, 0.93, 0.82> } }
+      // finish { ambient 1 }
+      finish {ambient 1 }
+    }
+  }
+  translate <R_x-1.94,2.05, R_z-3>
+}
+
