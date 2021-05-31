@@ -22,12 +22,21 @@ global_settings{assumed_gamma 1.0}
 #include "obj/tree2.inc"
 #include "obj/TOMTREE-1.5.inc"  
 #include "obj/lamp.pov"
+#include "obj/vase.pov" 
+#include "obj/chair.pov" 
+
+// #declare Camera_1 = 
+// camera { angle 50    
+//          location  < 2.20, 0.75, 0.05>
+//          right     x*image_width/image_height
+//          look_at   < 2.85, 0.75, 2.00> 
+// }
 
 #declare Camera_1 = 
 camera { angle 50    
          location  < 2.20, 0.75, 0.05>
          right     x*image_width/image_height
-         look_at   < 2.85, 0.75, 2.00> 
+         look_at   < 2.7, 0.75, 2.00> 
 }
 
 camera{Camera_1}
@@ -224,6 +233,87 @@ object{
     }
 }
 
+// --------------------- Chair ---------------------
+
+#declare rotationChair = -50;
+#declare scaleChair = 0.8;
+
+object {
+  totalBody
+  scale scaleChair
+  rotate y*rotationChair
+  translate<R_x-3.7, 0.01, R_z-2.5>
+  texture{
+    pigment{
+        image_map {
+          jpeg "textures/Fabric_Couch.jpeg"
+          interpolate 2
+        }     
+    }
+    finish {
+      ambient .2
+      diffuse .6
+      specular .2
+    }
+  }
+}
+
+object {
+  legs
+  scale scaleChair
+  rotate y*rotationChair
+  translate <R_x-3.7, 0, R_z-2.5>
+  texture { Rosewood }
+  finish {
+    ambient 0.0
+    diffuse 0.8
+    specular 0.6
+    reflection { 0.1 }
+  }
+}
+
+object {
+  totalPillow
+  scale scaleChair
+  rotate y*rotationChair
+  translate<R_x-3.7, 0.01, R_z-2.5>
+  texture{
+    pigment{
+        image_map {
+          jpeg "textures/Fabric_Couch.jpeg"
+          interpolate 2
+        }     
+    }
+    finish {
+      ambient .2
+      diffuse .6
+      specular .2
+    }
+  }
+}
+
+
+object {
+  buttons
+  scale scaleChair
+  rotate y*rotationChair
+  translate<R_x-3.7, 0.01, R_z-2.5>
+  texture{
+    pigment{
+        image_map {
+          jpeg "textures/pillows5.jpeg"
+          interpolate 2
+        }     
+    }
+    finish {
+      ambient .2
+      diffuse .6
+      specular .2
+    }
+  }
+}
+
+
 // --------------------- Table ---------------------
 object{ 
     Table( 0.3, // Table__Height, 
@@ -234,6 +324,21 @@ object{
      translate< R_x-2,0,R_z-3.5>
 }
 
+object{ 
+    Table( 0.3, // Table__Height, 
+           0.3, // Table__Half_Width_X, 
+           0.3, // Table__Half_Width_Z, 
+           0.02  // Table__Feet_Radius, 
+     )
+     translate< R_x-0.8,0,R_z-4.5>
+}
+
+// --------------------- Vase ---------------------
+object {
+    vase
+    scale 0.04
+    translate< R_x-0.8,0.4,R_z-4.5>
+}
 // --------------------- Tree ---------------------
 #declare Tree_01 = object{TREE double_illuminate hollow}
 object{ Tree_01
