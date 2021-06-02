@@ -14,13 +14,13 @@ global_settings{assumed_gamma 1.0}
 #include "functions.inc"
 #include "math.inc"
 #include "transforms.inc"
-#include "obj/Window.pov"
-#include "obj/Couch2.pov"
-#include "obj/Pillows.pov"
+#include "obj/window.pov"
+#include "obj/couch.pov"
+#include "obj/pillows.pov"
 #include "obj/table.pov"
-#include "obj/TOMLEAF.inc" 
-#include "obj/tree2.inc"
-#include "obj/TOMTREE-1.5.inc"  
+#include "obj/tree/TOMLEAF.inc" 
+#include "obj/tree/tree.inc"
+#include "obj/tree/TOMTREE-1.5.inc"  
 #include "obj/lamp.pov"
 #include "obj/vase.pov" 
 #include "obj/chair.pov" 
@@ -225,7 +225,7 @@ object{
   // scale 0.5
   pigment{
       image_map {
-        jpeg "textures/pillows5.jpeg"
+        jpeg "textures/pillows.jpeg"
         interpolate 2
       }
       translate x*-0.2
@@ -301,7 +301,7 @@ object {
   texture{
     pigment{
         image_map {
-          jpeg "textures/pillows5.jpeg"
+          jpeg "textures/pillows.jpeg"
           interpolate 2
         }     
     }
@@ -377,7 +377,7 @@ object {
   texture{
     pigment{
         image_map {
-          png "scenes/p1.png"
+          png "textures/scenes/p1.png"
           map_type 0
         }
         scale 4
@@ -403,7 +403,7 @@ object {
   texture{
     pigment{
         image_map {
-          tiff "scenes/p3.tif"
+          tiff "textures/scenes/p3.tif"
           map_type 0
         }
         scale 3
@@ -428,7 +428,7 @@ object {
   texture{
     pigment{
         image_map {
-          png "scenes/p4.png"
+          png "textures/scenes/p4.png"
           map_type 0
         }
         scale 4
